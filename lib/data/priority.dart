@@ -23,7 +23,7 @@ extension InfoExtension on Priority {
       case Priority.low:
         return TodoTheme.mainColor;
       default:
-        return Colors.black;
+        return TodoTheme.darkColor;
     }
   }
 

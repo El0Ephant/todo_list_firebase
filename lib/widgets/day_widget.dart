@@ -1,17 +1,12 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
-import 'package:todo_list/data/task.dart';
-import 'package:todo_list/data/priority.dart';
-
-import 'package:todo_list/widgets/task_card.dart';
+import 'package:todo_list/data/task_with_date.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/bloc/tasks_bloc.dart';
 
-import '../data/task_with_date.dart';
-import '../task_dialog.dart';
+import 'package:todo_list/widgets/task_card.dart';
+import 'package:todo_list/task_dialog.dart';
 
 class DayWidget extends StatelessWidget {
   const DayWidget({super.key, required this.date, /*required this.tasks*/});
@@ -74,7 +69,7 @@ class DayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tasks = BlocProvider.of<TasksBloc>(context).data[date];
+    final tasks = BlocProvider.of<TasksBloc>(context).data[date];
     return Column(
       children: [
         Align(

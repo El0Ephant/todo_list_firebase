@@ -10,7 +10,6 @@ import 'package:todo_list/bloc/tasks_bloc.dart';
 import 'package:todo_list/todo_theme.dart';
 import 'package:todo_list/pages/home_page.dart';
 import 'package:todo_list/data/task.dart';
-import 'package:todo_list/data/priority.dart';
 
 import 'package:ordered_set/ordered_set.dart';
 

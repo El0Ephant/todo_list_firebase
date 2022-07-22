@@ -15,8 +15,8 @@ class Registered extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headerStyle = Theme.of(context).textTheme.bodyText1!.copyWith(color: TodoTheme.mainColor);
-    var style = Theme.of(context).textTheme.bodyText2;
+    final headerStyle = Theme.of(context).textTheme.bodyText1!.copyWith(color: TodoTheme.mainColor);
+    final style = Theme.of(context).textTheme.bodyText2;
     return Column(
       children: [
         SizedBox(height: 10.h),

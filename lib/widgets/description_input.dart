@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo_list/todo_theme.dart';
 
 class DescriptionInput extends StatelessWidget {
   const DescriptionInput({super.key, required this.update, required this.initial});

@@ -10,10 +10,10 @@ import 'package:todo_list/widgets/description_input.dart';
 
 
 
-class TaskDialog {
+abstract class TaskDialog {
 
   static Future<TaskWithDate?> show(context, {DateTime? curDate, Task? curTask}) async {
-    var now =  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    final now =  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     var date = curDate != null ? DateTime(curDate.year, curDate.month, curDate.day) : now;
     var task = curTask != null ? Task(curTask.description, curTask.priority) : Task("-", Priority.medium);
@@ -26,7 +26,7 @@ class TaskDialog {
     }
 
     bool accept = false;
-
+    final style = Theme.of(context).textTheme.headline1;
     await showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -39,7 +39,7 @@ class TaskDialog {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(title,
-                        style: Theme.of(context).textTheme.headline1),
+                        style: style),
                   ),
                   PriorityPick(update: (Priority p){ task.priority = p;}, initial: curTask?.priority ?? Priority.medium,),
 
@@ -50,7 +50,7 @@ class TaskDialog {
                       date = await showDatePicker(context: context, initialDate: now, firstDate:  now, lastDate:  DateTime(now.year+1, now.month, now.day)) ?? date;
                     },
                     child: Text("Выбрать дату",
-                        style: Theme.of(context).textTheme.headline1),
+                        style: style),
                   ),
                   TextButton(
                     onPressed: () {
@@ -58,7 +58,7 @@ class TaskDialog {
                       Navigator.of(context).pop();
                     },
                     child: Text("Применить",
-                        style: Theme.of(context).textTheme.headline1),
+                        style: style),
                   )
                 ],
               ));

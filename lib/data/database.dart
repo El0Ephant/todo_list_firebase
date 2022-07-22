@@ -6,10 +6,11 @@ import 'package:todo_list/data/priority.dart';
 import 'package:todo_list/data/task.dart';
 
 class Database {
-  final CollectionReference tasksCollection = FirebaseFirestore.instance.collection('tasks');
+  final CollectionReference tasksCollection =
+      FirebaseFirestore.instance.collection('tasks');
 
-  Future<void> uploadData(String id, SplayTreeMap<DateTime, OrderedSet<Task>> data) async {
-
+  Future<void> uploadData(
+      String id, SplayTreeMap<DateTime, OrderedSet<Task>> data) async {
     List<DateTime> uniqueDates = List.from(data.keys);
     List<DateTime> dates = [];
     List<String> descriptions = [];
@@ -23,8 +24,6 @@ class Database {
       }
     }
 
-    print(dates);
-
     final json = {
       'uniqueDates': uniqueDates,
       'dates': dates,
@@ -32,15 +31,17 @@ class Database {
       'priorities': priorities,
     };
 
-    await tasksCollection.doc(id).set(json);
+    try {
+      await tasksCollection.doc(id).set(json);
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
   }
 
   Future<SplayTreeMap<DateTime, OrderedSet<Task>>> loadData(String id) async {
     var res = SplayTreeMap<DateTime, OrderedSet<Task>>();
     try {
       final data = await tasksCollection.doc(id).get();
-
-
 
       for (dynamic date in data.get('uniqueDates')) {
         res[date.toDate()] = OrderedSet<Task>();
@@ -54,16 +55,14 @@ class Database {
       var priorities = List<int>.from(data.get('priorities'));
 
       for (int i = 0; i < descriptions.length; i++) {
-        res[dates[i]]!.add(
-            Task(descriptions[i], Priority.values[priorities[i]]));
+        res[dates[i]]!
+            .add(Task(descriptions[i], Priority.values[priorities[i]]));
       }
 
       return res;
-    }
-    on FirebaseException catch (e){
+    } on FirebaseException catch (e) {
       print("Error message: ${e.message}");
-    }
-    finally {
+    } finally {
       return res;
     }
   }

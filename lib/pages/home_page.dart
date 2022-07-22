@@ -1,8 +1,5 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'package:todo_list/data/task_with_date.dart';
 
@@ -50,7 +47,7 @@ class HomePage extends StatelessWidget {
             if (user != null) {
               return Registered(user: user!, resetUser: _resetUser,);
             }
-            return NoUser();
+            return const NoUser();
 
           },
         )

@@ -18,26 +18,32 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headerStyle = Theme.of(context).textTheme.bodyText1;
-    var style = Theme.of(context).textTheme.bodyText2;
+    final headerStyle = Theme.of(context).textTheme.bodyText1;
+    final style = Theme.of(context).textTheme.bodyText2;
 
-    return Scaffold(
-      backgroundColor: TodoTheme.backColor,
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            SizedBox(height: 7.h,),
-            Text("Регистрация", style: headerStyle),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: TodoTheme.backColor,
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              SizedBox(height: 7.h,),
+              Text("Регистрация", style: headerStyle),
 
-            SignUpFields(setLogin: _setLogin, setPassword: _setPassword),
+              SignUpFields(setLogin: _setLogin, setPassword: _setPassword),
 
-            SizedBox(height: 3.h,),
-            ElevatedButton(onPressed: (){_signUp(context);}, style: ButtonStyle(backgroundColor: MaterialStateProperty.all(TodoTheme.backColor), elevation: MaterialStateProperty.all(10.0)), child: const Text("Зарегистрироваться"),),
-            SizedBox(height: 3.h,),
-            Text("Уже есть аккаунт?", style: headerStyle),
-            TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));}, child: Text("Войти", style: style!.copyWith(color: TodoTheme.mainColor)),),
-          ],
+              SizedBox(height: 3.h,),
+              ElevatedButton(onPressed: (){_signUp(context);}, style: ButtonStyle(backgroundColor: MaterialStateProperty.all(TodoTheme.backColor), elevation: MaterialStateProperty.all(10.0)), child: const Text("Зарегистрироваться"),),
+              SizedBox(height: 3.h,),
+              Text("Уже есть аккаунт?", style: headerStyle),
+              TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));}, child: Text("Войти", style: style!.copyWith(color: TodoTheme.mainColor)),),
+            ],
+          ),
         ),
       ),
     );
@@ -45,8 +51,6 @@ class SignUpPage extends StatelessWidget {
 
   Future<void> _signUp(BuildContext context) async {
     try {
-      print(login);
-      print(password);
       if (login != null && password != null) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: login!, password: password!);

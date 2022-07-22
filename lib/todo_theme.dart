@@ -16,7 +16,7 @@ abstract class TodoTheme {
       bodyText2: TextStyle(
           fontSize: 13.sp, fontFamily: 'Manrope', color: lightColor),
     ),
-    //fontFamily: 'Rubik',
+    fontFamily: 'Manrope',
 
   );
 
