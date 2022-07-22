@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 import 'dart:collection';
 import 'package:ordered_set/ordered_set.dart';
+//import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:todo_list/data/database.dart';
 import 'package:todo_list/data/task.dart';
@@ -16,7 +17,16 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final database = Database();
 
   TasksBloc(this.data) : super(TasksInitial()) {
+
     on<TasksEvent>((event, emit) async {
+      if (event is TasksInitial) {
+        /*var dataBox =  await Hive.openBox('dataBox');
+        if (dataBox.containsKey("data")) {
+          data = await dataBox.get("data");
+          emit(TasksUpdate());
+        }*/
+      }
+
       if (event is TasksAdded) {
         if (!data.containsKey(event.date)) {
           data[event.date] = OrderedSet<Task>();
@@ -46,6 +56,16 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
         emit(TasksUpdate());
       }
 
+      /*
+      else if (event is TasksSaved) {
+        emit(TasksWait());
+        var dataBox =  await Hive.openBox('dataBox');
+        await dataBox.put('data', data);
+        emit(TasksUpdate());
+      }
+       */
     });
   }
+
+
 }

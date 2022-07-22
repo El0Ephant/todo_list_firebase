@@ -44,7 +44,7 @@ class SignUpFields extends StatelessWidget {
           decoration: const InputDecoration(
             labelText: "Пароль",
           ),
-          validator: _validator(RegExp(r'^(?=.*[A-Z])^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$'), 'Введите пароль', setFirstPassword),
+          validator: _validator(RegExp(r'^(?=.*[A-Z])^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$'), 'Заглавные и строчные латинские буквы, цифры, 8 символов', setFirstPassword),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: true,
         ),

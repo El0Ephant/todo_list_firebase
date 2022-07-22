@@ -27,3 +27,7 @@ class TasksUploadStarted extends TasksEvent {
   const TasksUploadStarted(this.id);
   final String id;
 }
+
+class TasksSaved extends TasksEvent {
+  const TasksSaved();
+}

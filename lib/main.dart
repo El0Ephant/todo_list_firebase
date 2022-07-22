@@ -1,8 +1,11 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/bloc/tasks_bloc.dart';
@@ -14,8 +17,15 @@ import 'package:todo_list/data/task.dart';
 import 'package:ordered_set/ordered_set.dart';
 
 Future<void> main() async {
+  //Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  //Hive
+
+  /*await Hive.initFlutter();
+  await Hive.openBox('dataBox');*/
+
   runApp(const MyApp());
 }
 

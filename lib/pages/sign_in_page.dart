@@ -55,6 +55,12 @@ class SignInPage extends StatelessWidget {
   Future<void> _signIn(BuildContext context) async {
     try {
       if (login != null && password != null) {
+        Flushbar(
+          message: "Подождите...",
+          duration: const Duration(seconds: 2),
+          backgroundColor: TodoTheme.subColor,
+        ).show(context);
+
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: login!, password: password!);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
